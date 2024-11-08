@@ -13,16 +13,16 @@ let Shop = ({ count, setCount }) => {
   return (
     <div>
       <h1>Shop</h1>
-      <p>"Item Name": "Flameblade",</p>
-      <p>"Item Cost": 500,</p>
+      <p>Item Name: Flameblade</p>
+      <p>Item Cost: 500</p>
       <buton onClick={buy}>Buy</buton>
-      <p>"Damage Per Second": 50,</p>
-      <p>"Health": 0,</p>
+      <p>Damage Per Second: 50,</p>
+      <p>Health: 0</p>
       <p>
-        "Description": "A sword forged in dragon fire, capable of searing
-        through enemies with intense heat.",
+        Description: A sword forged in dragon fire, capable of searing
+        through enemies with intense heat.
       </p>
-      <p>"Sell Cost": 250</p>
+      <p>Sell Cost: 250</p>
     </div>
   );
 };
