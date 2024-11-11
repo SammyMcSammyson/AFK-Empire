@@ -9,6 +9,7 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
+import BurgerMenu from "@/components/BurgerMenu";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,10 +25,13 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body>
-          <SignedOut>
-            <InitialPage />
+    <header>
+            <BurgerMenu/>
+          </header>
+    {*<SignedOut>
+              <InitialPage />
           </SignedOut>
-          <SignedIn>{children}</SignedIn>
+          <SignedIn>*}{children}{*</SignedIn>*}
         </body>
       </html>
     </ClerkProvider>
