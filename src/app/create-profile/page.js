@@ -1,27 +1,39 @@
-export default function CreateProfile() {
-  // user variables that wont be in the form but will be in the database
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs/server";
+import { db } from "@/utils/dbConnection";
 
-  // all of these will use const
-  // user id
-  // user name
-  // base health
-  // base dps
+export default async function CreateProfile() {
+  const user = await currentUser();
+  const id = user.id;
+  const name = user.username;
+  const health = 100;
+  const damage = 10;
 
-  // counter colomn will be done elsewhere and item slots will be done via purchases from the shop
+  async function handleSave(formData) {
+    "use server";
+    const bio = formData.get("bio");
+    const avatar = formData.get("player-avatar");
+    await db.query(
+      `INSERT INTO user_info (user_id, user_name, characternumber, health, dps, user_bio) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (user_id) DO UPDATE SET user_bio = EXCLUDED.user_bio, characternumber = EXCLUDED.characternumber, health = EXCLUDED.health, dps = EXCLUDED.dps`,
+      [id, name, avatar, health, damage, bio]
+    );
 
-  // handle submit function
-  // this handle submit will have const variables with formData parameter (formData.get("form element name")) and the sql query for the database
+    revalidatePath("/profile");
+    revalidatePath("/create-profile");
+    redirect("/profile");
+  }
 
   return (
     <>
       <div className="text-center  p-3">
         <h1 className=" bg-slate-600 mb-10 rounded-xl">create profile page</h1>
 
-        <p>username: clerk </p>
-        <p>health: variable</p>
-        <p>damage: variable</p>
+        <p>username: {user.username} </p>
+        <p>health: {health}</p>
+        <p>damage: {damage}</p>
 
-        <form>
+        <form action={handleSave}>
           <label htmlFor="bio">bio:</label>
 
           <br />
