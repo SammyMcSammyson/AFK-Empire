@@ -1,5 +1,5 @@
-'use client';
-import { useEffect, useState } from 'react';
+"use client";
+import { useEffect, useState } from "react";
 
 export default function Shop({ count, setCount }) {
   const [shopItems, setShopItems] = useState([]);
@@ -8,7 +8,7 @@ export default function Shop({ count, setCount }) {
 
   useEffect(() => {
     async function fetchShopItems() {
-      const response = await fetch('http://localhost:3000/api/shop');
+      const response = await fetch("http://localhost:3000/api/shop");
       const data = await response.json();
       setShopItems(data);
     }
@@ -37,16 +37,16 @@ export default function Shop({ count, setCount }) {
 
   return (
     <div>
-      <h1 onClick={toggleShop} style={{ cursor: 'pointer' }}>
+      <h1 onClick={toggleShop} style={{ cursor: "pointer" }}>
         Shop
       </h1>
       {showShop && (
-        <ul className='shopLists'>
+        <ul className="shopLists">
           {shopItems.map((item) => (
             <li key={item.id}>
               <div
                 onClick={() => toggle(item.id)}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 <p>{item.item}</p>
               </div>

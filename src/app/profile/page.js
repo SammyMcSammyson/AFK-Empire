@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/utils/dbConnection";
+import { av } from "@/avatar/avatar";
 
 export default async function Profile() {
   const user = await currentUser();
@@ -21,6 +22,7 @@ export default async function Profile() {
           <div key={item.id}>
             <p>username: {item.user_name}</p>
             <p>avatar: {item.characternumber}</p>
+            <img src={av[item.characternumber - 1].url} alt="ph" width={400} />
             <p>bio: {item.user_bio}</p>
             <p>health: {item.health}</p>
             <p>damage: {item.dps}</p>

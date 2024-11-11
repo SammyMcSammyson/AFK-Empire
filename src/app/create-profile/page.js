@@ -26,7 +26,7 @@ export default async function CreateProfile() {
 
   return (
     <>
-      <div className="text-center  p-3">
+      <div className="text-center flex flex-col items-center p-3">
         <h1 className=" bg-slate-600 mb-10 rounded-xl">create profile page</h1>
 
         <p>username: {user.username} </p>
@@ -50,18 +50,23 @@ export default async function CreateProfile() {
             <label htmlFor="1">1</label>
             <input name="player-avatar" type="radio" id="1" value={1} />
             <p>image preview</p>
+            <img src="/images/placeholder-image1.jpg" width={200} />
             <label htmlFor="2">2</label>
             <input name="player-avatar" type="radio" id="2" value={2} />
             <p>image preview</p>
+            <img src="/images/placeholder-image2.jpg" width={200} />
             <label htmlFor="3">3</label>
             <input name="player-avatar" type="radio" id="3" value={3} />
             <p>image preview</p>
+            <img src="/images/placeholder-image3.jpg" width={200} />
             <label htmlFor="4">4</label>
             <input name="player-avatar" type="radio" id="4" value={4} />
             <p>image preview</p>
+            <img src="/images/placeholder-image4.jpg" width={200} />
             <label htmlFor="5">5</label>
             <input name="player-avatar" type="radio" id="5" value={5} />
             <p>image preview</p>
+            <img src="/images/placeholder-image5.jpg" width={200} />
           </div>
           <button type="submit" className="m-10 bg-slate-500 p-2 rounded-xl">
             save profile
