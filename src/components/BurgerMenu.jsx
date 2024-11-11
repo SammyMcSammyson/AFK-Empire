@@ -41,8 +41,8 @@ export default function BurgerMenu() {
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
-            <Link href="/about" className="text-gray-800 font-semibold hover:bg-gray-100 px-3 py-2 rounded">
-              About
+            <Link href="/dungeon" className="text-gray-800 font-semibold hover:bg-gray-100 px-3 py-2 rounded">
+              Dungeon
             </Link>
           </NavigationMenu.Item>
         </NavigationMenu.List>
