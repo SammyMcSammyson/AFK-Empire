@@ -8,7 +8,7 @@ export default function Shop({ count, setCount }) {
 
   useEffect(() => {
     async function fetchShopItems() {
-      const response = await fetch('http://localhost:3001/api/shop');
+      const response = await fetch('http://localhost:3000/api/shop');
       const data = await response.json();
       setShopItems(data);
     }
