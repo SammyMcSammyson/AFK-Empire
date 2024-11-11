@@ -24,13 +24,10 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body>
-          {/* <SignedOut>
+          <SignedOut>
             <InitialPage />
-          </SignedOut> */}
-          {/* <SignedIn> */}
-          {children}
-
-          {/* </SignedIn> */}
+          </SignedOut>
+          <SignedIn>{children}</SignedIn>
         </body>
       </html>
     </ClerkProvider>
