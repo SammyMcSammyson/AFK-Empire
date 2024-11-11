@@ -25,13 +25,13 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body>
-    <header>
-            <BurgerMenu/>
+          <header>
+            <BurgerMenu />
           </header>
-    {*<SignedOut>
-              <InitialPage />
+          <SignedOut>
+            <InitialPage />
           </SignedOut>
-          <SignedIn>*}{children}{*</SignedIn>*}
+          <SignedIn>{children}</SignedIn>
         </body>
       </html>
     </ClerkProvider>
