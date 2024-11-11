@@ -17,12 +17,13 @@ CREATE TABLE IF NOT EXISTS user_info (
 
 CREATE TABLE IF NOT EXISTS shop_table (
   id SERIAL PRIMARY KEY,
-  USER_id TEXT UNIQUE REFERENCES user_info (user_id) ON DELETE CASCADE,
+  cost INTEGER,
   item TEXT,
   dps INTEGER,
   health INTEGER,
   description TEXT,
-  sell_value INTEGER
+  sell_value INTEGER,
+  category TEXT
 );
 
 CREATE TABLE IF NOT EXISTS enemy_info (
