@@ -1,17 +1,17 @@
 'use client';
 import { useState } from 'react';
 import Counter from './Counter';
-import Shop from './Shop';
+import ShopItems from './ShopItems';
 
 const LandingPage = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1000);
   const counter = () => setCount(count + 1);
   const reset = () => setCount(0);
 
   return (
     <div>
       <Counter count={count} counter={counter} reset={reset} />
-      <Shop count={count} setCount={setCount} />
+      <ShopItems count={count} setCount={setCount} />
     </div>
   );
 };
