@@ -9,7 +9,7 @@ export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <NavigationMenu.Root className="relative">
+    <NavigationMenu.Root className="relative z-20">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-col gap-1.5 p-2 border-none bg-transparent cursor-pointer"

@@ -28,7 +28,6 @@ export default function RootLayout({ children }) {
             <BurgerMenu />
           </header>
 
-homepage-style
           <SignedOut>
             <InitialPage />
           </SignedOut>
