@@ -27,11 +27,15 @@ export default function RootLayout({ children }) {
         <header>
             <BurgerMenu />
           </header>
-
+homepage-style
           <SignedOut>
             <InitialPage />
           </SignedOut>
-          <SignedIn>{children}</SignedIn>
+          <SignedIn>
+          {children}
+
+          </SignedIn>
+
         </body>
       </html>
     </ClerkProvider>

@@ -9,7 +9,7 @@ const LandingPage = () => {
   const reset = () => setCount(0);
 
   return (
-    <div>
+    <div className="bg-gray-800 rounded-lg p-6 shadow-lg transition duration-300 transform hover:scale-105">
       <Counter count={count} counter={counter} reset={reset} />
       <ShopItems count={count} setCount={setCount} />
     </div>
