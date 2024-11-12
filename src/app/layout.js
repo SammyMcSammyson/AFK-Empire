@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
         <header>
             <BurgerMenu />
           </header>
+
 homepage-style
           <SignedOut>
             <InitialPage />
@@ -35,7 +36,6 @@ homepage-style
           {children}
 
           </SignedIn>
-
         </body>
       </html>
     </ClerkProvider>
