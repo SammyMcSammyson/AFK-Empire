@@ -1,40 +1,37 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import InitialPage from "@/components/InitialPage";
-
+import { Inter } from 'next/font/google';
+import './globals.css';
+import InitialPage from '@/components/InitialPage';
+import BurgerMenu from '@/components/BurgerMenu';
 import {
   ClerkProvider,
   SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
-} from "@clerk/nextjs";
-import BurgerMenu from "@/components/BurgerMenu";
+} from '@clerk/nextjs';
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ['latin'],
 });
 
 export const metadata = {
-  title: "The-AFK-Empire",
-  description: "An exciting game to try",
+  title: 'The-AFK-Empire',
+  description: 'An exciting game to try',
 };
 
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang='en'>
         <body>
-          <header>
+        <header>
             <BurgerMenu />
           </header>
-          {/* <SignedOut>
-            <InitialPage />
-          </SignedOut> */}
-          {/* <SignedIn> */}
-          {children}
 
-          {/* </SignedIn> */}
+          <SignedOut>
+            <InitialPage />
+          </SignedOut>
+          <SignedIn>{children}</SignedIn>
         </body>
       </html>
     </ClerkProvider>

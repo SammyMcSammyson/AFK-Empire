@@ -19,7 +19,27 @@ let SeedData = () => {
       [shopItem, cost, dps, health, description, sell_value, category]
     );
 
+
+
     console.log('Insert Working');
+  }
+
+  async function handleSubmissionEnemy(formData) {
+    'use server';
+    console.log('Saving data to the Enemy Database');
+
+    const enemy_name = formData.get('enemy_name');
+    const enemy_health = formData.get('enemy_health');
+    const dps = formData.get('dps');
+    const characternumber = formData.get('characternumber');
+
+    await db.query(
+      `INSERT INTO enemy_info (enemy_name,enemy_health, dps, characternumber) 
+                VALUES ($1, $2,$3,$4)    `,
+      [enemy_name, enemy_health, dps, characternumber]
+    );
+  
+    console.log('Insert Enemy Data Working');
   }
 
   return (
@@ -56,6 +76,38 @@ let SeedData = () => {
         <label> category </label>
 
         <textarea id='category' name='category' type='text' required></textarea>
+
+        <button type='submit'>Submit</button>
+      </form>
+
+      <h1> Insert Data into the Enemy </h1>
+      <form action={handleSubmissionEnemy}>
+        <label> Enemy Name </label>
+        <textarea
+          id='enemy_name'
+          name='enemy_name'
+          type='text'
+          required
+        ></textarea>
+        <label> enemy_health </label>
+        <textarea
+          id='enemy_health'
+          name='enemy_health'
+          type='integer'
+          required
+        ></textarea>
+
+        <label> dps </label>
+
+        <textarea id='dps' name='dps' type='integer' required></textarea>
+        <label> character number </label>
+
+        <textarea
+          id='characternumber'
+          name='characternumber'
+          type='integer'
+          required
+        ></textarea>
 
         <button type='submit'>Submit</button>
       </form>
