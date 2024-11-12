@@ -33,7 +33,7 @@ export default async function CreateProfile() {
         <p>health: {health}</p>
         <p>damage: {damage}</p>
 
-        <form action={handleSave}>
+        <form className="flex flex-col" action={handleSave}>
           <label htmlFor="bio">bio:</label>
 
           <br />
@@ -46,27 +46,34 @@ export default async function CreateProfile() {
           />
           <br />
           <p>player avatar</p>
-          <div>
-            <label htmlFor="1">1</label>
-            <input name="player-avatar" type="radio" id="1" value={1} />
-            <p>image preview</p>
-            <img src="/images/placeholder-image1.jpg" width={200} />
-            <label htmlFor="2">2</label>
-            <input name="player-avatar" type="radio" id="2" value={2} />
-            <p>image preview</p>
-            <img src="/images/placeholder-image2.jpg" width={200} />
-            <label htmlFor="3">3</label>
-            <input name="player-avatar" type="radio" id="3" value={3} />
-            <p>image preview</p>
-            <img src="/images/placeholder-image3.jpg" width={200} />
-            <label htmlFor="4">4</label>
-            <input name="player-avatar" type="radio" id="4" value={4} />
-            <p>image preview</p>
-            <img src="/images/placeholder-image4.jpg" width={200} />
-            <label htmlFor="5">5</label>
-            <input name="player-avatar" type="radio" id="5" value={5} />
-            <p>image preview</p>
-            <img src="/images/placeholder-image5.jpg" width={200} />
+          <div className="flex justify-evenly">
+            <div className="mr-10 ml-10">
+              <label htmlFor="1">1</label>
+              <input name="player-avatar" type="radio" id="1" value={1} />
+            </div>
+            <div className="mr-10 ml-10">
+              <label htmlFor="2">2</label>
+              <input name="player-avatar" type="radio" id="2" value={2} />
+            </div>
+            <div className="mr-10 ml-10">
+              <label htmlFor="3">3</label>
+              <input name="player-avatar" type="radio" id="3" value={3} />
+            </div>
+            <div className="mr-10 ml-10">
+              <label htmlFor="4">4</label>
+              <input name="player-avatar" type="radio" id="4" value={4} />
+            </div>
+            <div className="mr-10 ml-10">
+              <label htmlFor="5">5</label>
+              <input name="player-avatar" type="radio" id="5" value={5} />
+            </div>
+          </div>
+          <div className="flex">
+            <img className="p-4" src="/images/av1.png" width={150} />
+            <img className="p-4" src="/images/av2.png" width={150} />
+            <img className="p-4" src="/images/av3.png" width={150} />
+            <img className="p-4" src="/images/av4.png" width={150} />
+            <img className="p-4" src="/images/av5.png" width={150} />
           </div>
           <button type="submit" className="m-10 bg-slate-500 p-2 rounded-xl">
             save profile

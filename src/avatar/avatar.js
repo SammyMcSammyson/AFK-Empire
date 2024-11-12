@@ -1,27 +1,27 @@
 export const av = [
   {
     id: 1,
-    url: "/images/placeholder-image1.jpg",
+    url: "/images/av1.png",
     value: 1,
   },
   {
     id: 2,
-    url: "/images/placeholder-image2.jpg",
+    url: "/images/av2.png",
     value: 2,
   },
   {
     id: 3,
-    url: "/images/placeholder-image3.jpg",
+    url: "/images/av3.png",
     value: 3,
   },
   {
     id: 4,
-    url: "/images/placeholder-image4.jpg",
+    url: "/images/av4.png",
     value: 4,
   },
   {
     id: 5,
-    url: "/images/placeholder-image5.jpg",
+    url: "/images/av5.png",
     value: 5,
   },
 ];

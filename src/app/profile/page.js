@@ -22,7 +22,7 @@ export default async function Profile() {
           <div key={item.id}>
             <p>username: {item.user_name}</p>
             <p>avatar: {item.characternumber}</p>
-            <img src={av[item.characternumber - 1].url} alt="ph" width={400} />
+            <img src={av[item.characternumber - 1].url} alt="ph" width={150} />
             <p>bio: {item.user_bio}</p>
             <p>health: {item.health}</p>
             <p>damage: {item.dps}</p>
