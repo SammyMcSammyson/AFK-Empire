@@ -50,8 +50,11 @@ export default function ShopItems({ count, setCount }) {
     setShowShop((prev) => !prev);
   };
   return (
-    <div className="mt-8">
-      <h1 onClick={toggleShop} className="text-2xl font-bold cursor-pointer text-orange-500 hover:text-orange-400 transition duration-300">
+    <div className='mt-8'>
+      <h1
+        onClick={toggleShop}
+        className='text-2xl font-bold cursor-pointer text-orange-500 hover:text-orange-400 transition duration-300'
+      >
         Shop
       </h1>
 
@@ -72,18 +75,21 @@ export default function ShopItems({ count, setCount }) {
             <p onClick={() => handleCategoryClick('Artifacts')}>Artifacts</p>
           </div>
 
-          <ul className="shopLists mt-4 space-y-4">
+          <ul className='shopLists mt-4 space-y-4'>
             {filteredItems.map((item) => (
-              <li key={item.id} className="bg-gray-700 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+              <li
+                key={item.id}
+                className='bg-gray-700 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300'
+              >
                 <div
                   onClick={() => toggle(item.id)}
-                  className="flex justify-between items-center cursor-pointer"}
+                  className='flex justify-between items-center cursor-pointer'
                 >
                   <p>{item.item}</p>
                 </div>
 
                 {expandedItems[item.id] && (
-                  < className="mt-2 space-y-2 text-gray-300">
+                  <div className='mt-2 space-y-2 text-gray-300'>
                     <p>Item: {item.item}</p>
                     <p>Cost: {item.cost}</p>
                     <p>Damage Per Second: {item.dps}</p>
@@ -91,11 +97,13 @@ export default function ShopItems({ count, setCount }) {
                     <p>Description: {item.description}</p>
                     <p>Category: {item.category}</p>
                     <p>Sell Value: {item.sell_value}</p>
-                    <button onClick={() => buy(item.cost, item.item)} className="bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50"
->
+                    <button
+                      onClick={() => buy(item.cost, item.item)}
+                      className='bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50'
+                    >
                       Buy
                     </button>
-                  </>
+                  </div>
                 )}
               </li>
             ))}
