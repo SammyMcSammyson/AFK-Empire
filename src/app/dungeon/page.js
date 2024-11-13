@@ -1,25 +1,30 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import * as Popover from '@radix-ui/react-popover';
+import HealthProgressBar from '@/components/HealthProgressBar';
 
 export default function DungeonPage() {
-  // Player state
+  const maxPlayerHealth = 100;
+  const maxEnemyHealth = 100;
+
   const [player, setPlayer] = useState({
     name: 'Player1',
-    health: 500,
-    dps: 80,
+    health: maxPlayerHealth,
+    dps: 10,
     counter: 0,
   });
 
-  // Enemy state
   const [enemy, setEnemy] = useState({
     name: 'Unknown',
     health: 0,
     dps: 0,
   });
+
   const [fetchEnemy, setFetchEnemy] = useState([]);
   const [randomEnemy, setRandomEnemy] = useState(null);
+
   useEffect(() => {
     async function fetchEnemy() {
       const response = await fetch('http://localhost:3000/api/enemy');
@@ -27,7 +32,8 @@ export default function DungeonPage() {
       setFetchEnemy(data);
 
       if (data.length > 0) {
-        const random = Math.floor(Math.random() * 20) + 1;
+        // const random = Math.floor(Math.random() * 20) + 1;
+        const random = Math.floor(Math.random() * data.length);
         const selectedEnemy = data[random];
         setRandomEnemy(selectedEnemy);
 
@@ -41,18 +47,14 @@ export default function DungeonPage() {
     fetchEnemy();
   }, []);
 
-  // Handle player attack
   const handleAttack = () => {
     if (enemy.health > 0) {
-      setEnemy((prev) => ({ ...prev, health: prev.health - player.dps }));
+      setEnemy((prev) => ({ ...prev, health: Math.max(0, prev.health - player.dps) }));
     } else {
-      // Reward and reset enemy health on defeat
       setPlayer((prev) => ({ ...prev, counter: prev.counter + 1 }));
-      setEnemy({ ...enemy, health: 50 });
+      setEnemy({ ...enemy, health: maxEnemyHealth });
     }
   };
-
-  // Enemy attack (reduces player health over time)
 
   useEffect(() => {
     const delayTimeout = setTimeout(() => {
@@ -72,10 +74,13 @@ export default function DungeonPage() {
   return (
     <div className='flex flex-col items-center justify-center h-screen bg-gray-900 text-white'>
       <div className='flex justify-between w-full max-w-4xl p-4'>
+
+        {/* this is part is for player Info */}
         <div className='flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Player Info</h2>
           <p>Name: {player.name}</p>
-          <p>Health: {player.health}</p>
+          <p>Health:</p>
+          <HealthProgressBar health={player.health} maxHealth={maxPlayerHealth} color="bg-green-500" />
           <p>DPS: {player.dps}</p>
           <p>Rewards Counter: {player.counter}</p>
           <button
@@ -86,14 +91,17 @@ export default function DungeonPage() {
           </button>
         </div>
 
+        {/* This part is for enemy info */}
         <div className='flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Enemy Info</h2>
           <p>Name: {enemy.name}</p>
-          <p>Health: {enemy.health}</p>
+          <p>Health:</p>
+          <HealthProgressBar health={enemy.health} maxHealth={maxEnemyHealth} color="bg-red-500" />
           <p>DPS: {enemy.dps}</p>
         </div>
       </div>
 
+        {/* popover radix UI primitive implemented here */}
       <Popover.Root>
         <Popover.Trigger className='bg-gray-700 px-4 py-2 rounded-lg mt-8'>
           View Details
