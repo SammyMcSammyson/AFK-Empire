@@ -19,3 +19,18 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+#frame,
+#Eframe {
+  width: 30vw;
+  height: 30vh;
+  border-radius: 40px;
+  background-color: rgba(15, 83, 80, 0.514);
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+#Eframe {
+  background-size: cover;
+  background-clip: content-box;
+}
