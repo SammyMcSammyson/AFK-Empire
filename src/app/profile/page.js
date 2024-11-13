@@ -23,6 +23,31 @@ export default async function Profile() {
 
   const uiw = userInfo.rows;
 
+  const sell = async (cost, item, itemId, health, dps, sell_value) => {
+      const response = await fetch('http://localhost:3000/api/sell', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          cost,
+          item,
+          itemId,
+          health,
+          dps,
+          currentCount: count,
+        }),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert(`You have sold the ${item}`);
+        setCount(result.newCount);
+      } 
+      }
+    } 
+
+
   return (
     <>
       <h1>Profile</h1>

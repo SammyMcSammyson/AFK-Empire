@@ -21,7 +21,7 @@ export default function ShopItems({ count, setCount }) {
 
   const buy = async (cost, item, itemId, health, dps) => {
     if (count >= cost) {
-      const response = await fetch('/api/buy', {
+      const response = await fetch('http://localhost:3000/api/buy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -21,20 +21,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider {...{ mode: 'dynamic' }}>
       <html lang='en'>
         <body>
-        <header>
+          <header>
             <BurgerMenu />
           </header>
 
           <SignedOut>
             <InitialPage />
           </SignedOut>
-          <SignedIn>
-          {children}
-
-          </SignedIn>
+          <SignedIn>{children}</SignedIn>
         </body>
       </html>
     </ClerkProvider>
