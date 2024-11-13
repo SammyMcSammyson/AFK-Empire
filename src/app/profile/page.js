@@ -21,7 +21,9 @@ export default async function Profile() {
     [user.id]
   );
 
+
     const uiw = userInfo.rows;
+
   
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10 px-4">

@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 
 export default function ShopItems({ count, setCount }) {
-  let { userId } = useUser;
+  let { userId } = useUser();
   const [shopItems, setShopItems] = useState([]);
   const [expandedItems, setExpandedItems] = useState({});
   const [showShop, setShowShop] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
-  // const [availableSlots, setAvailableSlots] = useState(5);
 
   useEffect(() => {
     async function fetchShopItems() {
@@ -21,7 +20,7 @@ export default function ShopItems({ count, setCount }) {
 
   const buy = async (cost, item, itemId, health, dps) => {
     if (count >= cost) {
-      const response = await fetch('/api/buy', {
+      const response = await fetch('http://localhost:3000/api/buy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,6 +50,32 @@ export default function ShopItems({ count, setCount }) {
     }
   };
 
+  const sellItem = async (itemId, sellValue, item, health, dps) => {
+    const response = await fetch('http://localhost:3000/api/sell', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        itemId,
+        sellValue,
+        currentCount: count,
+        health,
+        dps,
+      }),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert(`You have sold the ${item}`);
+      setCount(result.newCount);
+      console.log(count);
+    } else {
+      alert(`Your cannot sell something if you do not own it.`);
+    }
+  };
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category === selectedCategory ? '' : category);
   };
@@ -69,6 +94,7 @@ export default function ShopItems({ count, setCount }) {
   const toggleShop = () => {
     setShowShop((prev) => !prev);
   };
+
   return (
     <div className='mt-8'>
       <h1
@@ -127,9 +153,23 @@ export default function ShopItems({ count, setCount }) {
                           item.dps
                         )
                       }
-                      className='bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50'
+                      className='bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50 mr-4 '
                     >
                       Buy
+                    </button>
+                    <button
+                      onClick={() =>
+                        sellItem(
+                          item.id,
+                          item.sell_value,
+                          item.item,
+                          item.health,
+                          item.dps
+                        )
+                      }
+                      className='bg-gradient-to-r from-red-500 to-orange-500 text-white py-1 px-3 rounded hover:bg-orange-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-red-500/50 '
+                    >
+                      Sell
                     </button>
                   </div>
                 )}
