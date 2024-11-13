@@ -4,7 +4,6 @@ import { currentUser } from '@clerk/nextjs/server';
 export async function POST(req) {
   const requestBody = await req.json();
   const {
-    sell_value
     cost,
     health: itemHealth,
     dps: itemDps,
@@ -14,6 +13,16 @@ export async function POST(req) {
 
   const user1 = await currentUser();
   const user2 = user1.username;
+
+  const itemResult = await db.query(
+    `SELECT sell_value FROM shop_table WHERE id = $1`,
+    [itemId]
+  );
+
+  const item = itemResult.rows[0];
+  const sell_value = item.sell_value 
+
+ 
 
   const newCounter = currentCount + sell_value;
 
