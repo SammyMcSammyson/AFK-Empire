@@ -50,7 +50,7 @@ export default function ShopItems({ count, setCount }) {
     }
   };
 
-  const sellItem = async (itemId, sellValue) => {
+  const sellItem = async (itemId, sellValue, item, health, dps) => {
     const response = await fetch('http://localhost:3000/api/sell', {
       method: 'POST',
       headers: {
@@ -61,6 +61,8 @@ export default function ShopItems({ count, setCount }) {
         itemId,
         sellValue,
         currentCount: count,
+        health,
+        dps,
       }),
     });
 
@@ -68,6 +70,7 @@ export default function ShopItems({ count, setCount }) {
     if (response.ok) {
       alert(`You have sold the ${item}`);
       setCount(result.newCount);
+      console.log(count);
     } else {
       alert(`Your cannot sell something if you do not own it.`);
     }
@@ -150,13 +153,21 @@ export default function ShopItems({ count, setCount }) {
                           item.dps
                         )
                       }
-                      className='bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50'
+                      className='bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50 mr-4 '
                     >
                       Buy
                     </button>
                     <button
-                      onClick={() => sellItem(item.id, item.sell_value)}
-                      className='bg-gradient-to-r from-red-500 to-orange-500 text-white py-1 px-3 rounded hover:bg-orange-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-red-500/50'
+                      onClick={() =>
+                        sellItem(
+                          item.id,
+                          item.sell_value,
+                          item.item,
+                          item.health,
+                          item.dps
+                        )
+                      }
+                      className='bg-gradient-to-r from-red-500 to-orange-500 text-white py-1 px-3 rounded hover:bg-orange-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-red-500/50 '
                     >
                       Sell
                     </button>

@@ -21,7 +21,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider {...{ mode: 'dynamic' }}>
+    <ClerkProvider dynamic>
       <html lang='en'>
         <body>
           <header>

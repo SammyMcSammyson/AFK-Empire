@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 
 import HealthProgressBar from '@/components/HealthProgressBar';
-import { useUser } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 
 export default function DungeonPage() {
+  const { username, userId, isLoaded, isSignedIn } = useAuth();
+
   const maxPlayerHealth = 100;
   const maxEnemyHealth = 100;
 
@@ -17,24 +19,28 @@ export default function DungeonPage() {
     counter: 0,
   });
 
-  console.log(useUser());
-  
+  let user = useAuth();
+  console.log(useAuth(user));
+
   useEffect(() => {
     async function fetchPlayer() {
-      const response = await fetch('http://localhost:3000/api/player', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user.username),
-      });
-      const data = await response.json();
-      setPlayer({
-        name: data.user_name,
-        health: data.health,
-        dps: data.dps,
-      });
+        const response = await fetch('http://localhost:3000/api/player', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user.userId }),
+        });
+
+        const data = await response.json();
+        setPlayer({
+          name: data.user_name,
+          health: data.health,
+          dps: data.dps,
+        });
+      
     }
+
     fetchPlayer();
-  }, [user]);
+  }, []);
 
   const [enemy, setEnemy] = useState({
     name: 'Unknown',
