@@ -1,35 +1,55 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
+import { useEffect, useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 
 export default function ShopItems({ count, setCount }) {
+  let { userId } = useUser;
   const [shopItems, setShopItems] = useState([]);
   const [expandedItems, setExpandedItems] = useState({});
   const [showShop, setShowShop] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [availableSlots, setAvailableSlots] = useState(5);
+  // const [availableSlots, setAvailableSlots] = useState(5);
 
   useEffect(() => {
     async function fetchShopItems() {
-      const response = await fetch("http://localhost:3000/api/shop");
+      const response = await fetch('http://localhost:3000/api/shop');
       const data = await response.json();
       setShopItems(data);
     }
     fetchShopItems();
   }, []);
 
-  function buy(cost, item) {
+  const buy = async (cost, item, itemId, health, dps) => {
     if (count >= cost) {
-      if (availableSlots > 0) {
-        setCount(count - cost);
-        setAvailableSlots(availableSlots - 1);
+      const response = await fetch('/api/buy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+          cost,
+          item,
+          itemId,
+          health,
+          dps,
+          currentCount: count,
+        }),
+      });
+      const result = await response.json();
+      if (response.ok) {
         alert(`You have bought the ${item}`);
+        setCount(result.newCount);
       } else {
-        alert('Your inventory is full make space by selling an item.');
+        alert(
+          result.message ||
+            'Your slots are full you should sell some to make space'
+        );
       }
     } else {
       alert(`You do not have enough money to purchase the ${item}`);
     }
-  }
+  };
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category === selectedCategory ? '' : category);
@@ -50,7 +70,6 @@ export default function ShopItems({ count, setCount }) {
     setShowShop((prev) => !prev);
   };
   return (
-
     <div className='mt-8'>
       <h1
         onClick={toggleShop}
@@ -60,7 +79,6 @@ export default function ShopItems({ count, setCount }) {
       </h1>
 
       {showShop && (
-
         <div>
           <div
             style={{
@@ -100,7 +118,15 @@ export default function ShopItems({ count, setCount }) {
                     <p>Category: {item.category}</p>
                     <p>Sell Value: {item.sell_value}</p>
                     <button
-                      onClick={() => buy(item.cost, item.item)}
+                      onClick={() =>
+                        buy(
+                          item.cost,
+                          item.item,
+                          item.id,
+                          item.health,
+                          item.dps
+                        )
+                      }
                       className='bg-gradient-to-r from-purple-500 to-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-300 transform hover:scale-105 hover:shadow-lg shadow-purple-500/50'
                     >
                       Buy

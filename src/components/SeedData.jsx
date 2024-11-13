@@ -1,27 +1,35 @@
 import { db } from '@/utils/dbConnection';
 
-let SeedData = () => {
-  async function handleSubmission(formData) {
-    'use server';
-    console.log('Saving data to the Shop database...');
+export default async function SeedData() {
+  // function handleSubmission(formData) {
+  //   'use server';
+  //   console.log('Saving data to the Shop database...');
 
-    const shopItem = formData.get('shopItem');
-    const cost = formData.get('cost');
-    const dps = formData.get('dps');
-    const health = formData.get('health');
-    const description = formData.get('description');
-    const sell_value = formData.get('sell_value');
-    const category = formData.get('category');
+  //   const shopItem = formData.get('shopItem');
+  //   const cost = formData.get('cost');
+  //   const dps = formData.get('dps');
+  //   const health = formData.get('health');
+  //   const description = formData.get('description');
+  //   const sell_value = formData.get('sell_value');
+  //   const category = formData.get('category');
 
-    await db.query(
-      `INSERT INTO shop_table (item,cost, dps, health, description, sell_value, category) 
-                VALUES ($1, $2,$3,$4,$5, $6,$7)    `,
-      [shopItem, cost, dps, health, description, sell_value, category]
-    );
+  //   db.query(
+  //     `INSERT INTO shop_table (item,cost, dps, health, description, sell_value, category)
+  //               VALUES ($1, $2,$3,$4,$5, $6,$7)    `,
+  //     [shopItem, cost, dps, health, description, sell_value, category]
+  //   );
 
+  //   console.log('Insert Working');
+  // }
 
+  const userID = await db.query(
+    `SELECT id, user_id, user_name, user_bio, itemslot_1, itemslot_2, itemslot_3, itemslot_4, itemslot_5, counter, health, dps FROM user_info WHERE id = 4`
+  );
 
-    console.log('Insert Working');
+  const users = userID.rows;
+
+  function userInfo() {
+    console.log('this is the information for me', JSON.stringify(users));
   }
 
   async function handleSubmissionEnemy(formData) {
@@ -38,14 +46,14 @@ let SeedData = () => {
                 VALUES ($1, $2,$3,$4)    `,
       [enemy_name, enemy_health, dps, characternumber]
     );
-  
+
     console.log('Insert Enemy Data Working');
   }
 
   return (
     <div>
       <h1> Insert Data into the Shop </h1>
-      <form action={handleSubmission}>
+      {/* <form action={handleSubmission}>
         <label> Shop Item </label>
         <textarea id='shopItem' name='shopItem' type='text' required></textarea>
         <label> Cost </label>
@@ -78,7 +86,7 @@ let SeedData = () => {
         <textarea id='category' name='category' type='text' required></textarea>
 
         <button type='submit'>Submit</button>
-      </form>
+      </form> */}
 
       <h1> Insert Data into the Enemy </h1>
       <form action={handleSubmissionEnemy}>
@@ -111,8 +119,7 @@ let SeedData = () => {
 
         <button type='submit'>Submit</button>
       </form>
+      <button onClick={userInfo()}>User Info</button>
     </div>
   );
-};
-
-export default SeedData;
+}

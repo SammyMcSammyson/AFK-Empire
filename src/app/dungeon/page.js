@@ -3,16 +3,22 @@
 
 import React, { useState, useEffect } from 'react';
 import * as Popover from '@radix-ui/react-popover';
+
+
+
 import HealthProgressBar from '@/components/HealthProgressBar';
+
 
 export default function DungeonPage() {
   const maxPlayerHealth = 100;
   const maxEnemyHealth = 100;
 
   const [player, setPlayer] = useState({
+
     name: 'Player1',
     health: maxPlayerHealth,
     dps: 10,
+
     counter: 0,
   });
 
