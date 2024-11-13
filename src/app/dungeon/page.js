@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -6,17 +7,46 @@ import { en } from "@/enemy/enemy";
 
 import HealthProgressBar from "@/components/HealthProgressBar";
 
+import HealthProgressBar from '@/components/HealthProgressBar';
+import { useAuth } from '@clerk/nextjs';
+
+
 export default function DungeonPage() {
+  const { username, userId, isLoaded, isSignedIn } = useAuth();
+
   const maxPlayerHealth = 100;
   const maxEnemyHealth = 100;
-
   const [player, setPlayer] = useState({
-    name: "Player1",
+
+    name: 'Player1',
+    
     health: maxPlayerHealth,
     dps: 10,
-
     counter: 0,
   });
+
+  let user = useAuth();
+  console.log(useAuth(user));
+
+  useEffect(() => {
+    async function fetchPlayer() {
+        const response = await fetch('http://localhost:3000/api/player', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user.userId }),
+        });
+
+        const data = await response.json();
+        setPlayer({
+          name: data.user_name,
+          health: data.health,
+          dps: data.dps,
+        });
+      
+    }
+
+    fetchPlayer();
+  }, []);
 
   const [enemy, setEnemy] = useState({
     name: "Unknown",
@@ -35,7 +65,6 @@ export default function DungeonPage() {
       setFetchEnemy(data);
 
       if (data.length > 0) {
-        // const random = Math.floor(Math.random() * 20) + 1;
         const random = Math.floor(Math.random() * data.length);
         const selectedEnemy = data[random];
         setRandomEnemy(selectedEnemy);
@@ -81,8 +110,9 @@ export default function DungeonPage() {
   }, [enemy.dps]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
-      <div className="flex justify-between w-full max-w-4xl p-4">
+
+    <div className='flex flex-col items-center justify-center h-screen bg-gray-900 text-white'>
+      <div className='flex justify-between w-full max-w-4xl p-4'>
         {/* this is part is for player Info */}
         <div className="flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg">
           <h2 className="text-2xl font-bold">Player Info</h2>
@@ -91,7 +121,9 @@ export default function DungeonPage() {
           <HealthProgressBar
             health={player.health}
             maxHealth={maxPlayerHealth}
-            color="bg-green-500"
+
+            color='bg-green-500'
+
           />
           <p>DPS: {player.dps}</p>
           <p>Rewards Counter: {player.counter}</p>
@@ -120,7 +152,8 @@ export default function DungeonPage() {
           <HealthProgressBar
             health={enemy.health}
             maxHealth={maxEnemyHealth}
-            color="bg-red-500"
+
+            color='bg-red-500'
           />
           <p>DPS: {enemy.dps}</p>
         </div>

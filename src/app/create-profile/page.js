@@ -1,7 +1,8 @@
-import { revalidatePath } from "next/cache";
+ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/utils/dbConnection";
+
 
 export default async function CreateProfile() {
   const user = await currentUser();
@@ -9,15 +10,14 @@ export default async function CreateProfile() {
   const name = user.username;
   const health = 100;
   const damage = 10;
-  const counter = 0;
 
   async function handleSave(formData) {
     "use server";
     const bio = formData.get("bio");
     const avatar = formData.get("player-avatar");
     await db.query(
-      `INSERT INTO user_info (user_id, user_name, characternumber, health, dps, user_bio, counter) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (user_id) DO UPDATE SET user_bio = EXCLUDED.user_bio, characternumber = EXCLUDED.characternumber, health = EXCLUDED.health, dps = EXCLUDED.dps`,
-      [id, name, avatar, health, damage, bio, counter]
+      `INSERT INTO user_info (user_id, user_name, characternumber, health, dps, user_bio) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (user_id) DO UPDATE SET user_bio = EXCLUDED.user_bio, characternumber = EXCLUDED.characternumber, health = EXCLUDED.health, dps = EXCLUDED.dps`,
+      [id, name, avatar, health, damage, bio]
     );
 
     revalidatePath("/profile");
