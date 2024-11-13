@@ -7,13 +7,13 @@ const Counter = ({ count, counter, reset }) => {
       
       <button 
         onClick={counter}
-        className="py-2 px-6 rounded-lg font-semibold text-white bg-gradient-to-r from-green-500 to-teal-500 shadow-md hover:shadow-lg hover:shadow-teal-500/60 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        className="py-2 px-6 rounded-lg font-semibold text-black bg-gradient-to-r from-yellow-500 to-blue-700 shadow-md hover:shadow-lg hover:shadow-teal-500/60 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-500"
       > Click
       </button>
       
       <button 
         onClick={reset}
-        className="py-2 px-6 rounded-lg font-semibold text-white bg-gradient-to-r from-red-500 to-orange-500 shadow-md hover:shadow-lg hover:shadow-red-500/60 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500"
+        className="py-2 px-6 rounded-lg font-semibold text-black bg-gradient-to-r from-red-500 to-orange-500 shadow-md hover:shadow-lg hover:shadow-red-500/60 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500"
       > Reset
       </button>
     </div>
