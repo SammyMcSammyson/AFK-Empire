@@ -1,17 +1,28 @@
-import Link from "next/link";
-import { currentUser } from "@clerk/nextjs/server";
-import { db } from "@/utils/dbConnection";
-import { av } from "@/avatar/avatar";
+import Link from 'next/link';
+import { currentUser } from '@clerk/nextjs/server';
+import { db } from '@/utils/dbConnection';
+import { av } from '@/avatar/avatar';
 
 export default async function Profile() {
   const user = await currentUser();
 
   const userInfo = await db.query(
-    `SELECT * FROM user_info WHERE user_id = $1`,
+    `SELECT 
+       ui.user_name, ui.characternumber, ui.user_bio, ui.health, ui.dps, ui.counter,
+       st1.item AS item_1_name, st2.item AS item_2_name, st3.item AS item_3_name, 
+       st4.item AS item_4_name, st5.item AS item_5_name
+     FROM user_info ui
+     LEFT JOIN shop_table st1 ON st1.id = ui.itemslot_1
+     LEFT JOIN shop_table st2 ON st2.id = ui.itemslot_2
+     LEFT JOIN shop_table st3 ON st3.id = ui.itemslot_3
+     LEFT JOIN shop_table st4 ON st4.id = ui.itemslot_4
+     LEFT JOIN shop_table st5 ON st5.id = ui.itemslot_5
+     WHERE ui.user_id = $1`,
     [user.id]
   );
-  const uiw = userInfo.rows;
 
+    const uiw = userInfo.rows;
+  
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center py-10 px-4">
       <h1 className="text-4xl mb-8font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-red-500"
@@ -63,5 +74,6 @@ export default async function Profile() {
         Edit Profile
       </Link>
     </div>
+
   );
 }
