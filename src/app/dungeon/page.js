@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import * as Popover from '@radix-ui/react-popover';
+import { useUser } from '@clerk/nextjs';
 
 export default function DungeonPage() {
   // Player state
   const [player, setPlayer] = useState({
-    name: 'Player1',
-    health: 500,
-    dps: 80,
+    name: 'Unknown',
+    health: 0,
+    dps: 0,
     counter: 0,
   });
 
