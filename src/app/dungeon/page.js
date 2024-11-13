@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -7,9 +6,8 @@ import { en } from "@/enemy/enemy";
 
 import HealthProgressBar from "@/components/HealthProgressBar";
 
-import HealthProgressBar from '@/components/HealthProgressBar';
-import { useAuth } from '@clerk/nextjs';
-
+import { useAuth } from "@clerk/nextjs";
+import { av } from "@/avatar/avatar";
 
 export default function DungeonPage() {
   const { username, userId, isLoaded, isSignedIn } = useAuth();
@@ -17,12 +15,12 @@ export default function DungeonPage() {
   const maxPlayerHealth = 100;
   const maxEnemyHealth = 100;
   const [player, setPlayer] = useState({
+    name: "Player1",
 
-    name: 'Player1',
-    
     health: maxPlayerHealth,
     dps: 10,
     counter: 0,
+    cn: 0,
   });
 
   let user = useAuth();
@@ -30,19 +28,20 @@ export default function DungeonPage() {
 
   useEffect(() => {
     async function fetchPlayer() {
-        const response = await fetch('http://localhost:3000/api/player', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: user.userId }),
-        });
+      const response = await fetch("http://localhost:3000/api/player", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.userId }),
+      });
 
-        const data = await response.json();
-        setPlayer({
-          name: data.user_name,
-          health: data.health,
-          dps: data.dps,
-        });
-      
+      const data = await response.json();
+      setPlayer({
+        name: data.user_name,
+        health: data.health,
+        dps: data.dps,
+        counter: data.counter,
+        cn: data.characternumber - 1,
+      });
     }
 
     fetchPlayer();
@@ -76,7 +75,6 @@ export default function DungeonPage() {
           dps: selectedEnemy.dps,
           cn: val,
         });
-        console.log(val);
       }
     }
     fetchEnemy();
@@ -110,9 +108,8 @@ export default function DungeonPage() {
   }, [enemy.dps]);
 
   return (
-
-    <div className='flex flex-col items-center justify-center h-screen bg-gray-900 text-white'>
-      <div className='flex justify-between w-full max-w-4xl p-4'>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+      <div className="flex justify-between w-full max-w-4xl p-4">
         {/* this is part is for player Info */}
         <div className="flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg">
           <h2 className="text-2xl font-bold">Player Info</h2>
@@ -121,9 +118,7 @@ export default function DungeonPage() {
           <HealthProgressBar
             health={player.health}
             maxHealth={maxPlayerHealth}
-
-            color='bg-green-500'
-
+            color="bg-green-500"
           />
           <p>DPS: {player.dps}</p>
           <p>Rewards Counter: {player.counter}</p>
@@ -135,11 +130,10 @@ export default function DungeonPage() {
           </button>
         </div>
         <div className="flex">
-          <div
-            id="frame"
-            className={`bg-[url(/images/avatar/av2.png)] mr-10 mt-20`}
-          ></div>
-          <div className="ml-10 mt-20">
+          <div className="m-5 mt-5">
+            <img id="frame" src={av[player.cn].url} alt="player" />
+          </div>
+          <div className="m-5 mt-5">
             <img id="Eframe" src={en[enemy.cn].url} alt="enemy" />
           </div>
         </div>
@@ -152,8 +146,7 @@ export default function DungeonPage() {
           <HealthProgressBar
             health={enemy.health}
             maxHealth={maxEnemyHealth}
-
-            color='bg-red-500'
+            color="bg-red-500"
           />
           <p>DPS: {enemy.dps}</p>
         </div>

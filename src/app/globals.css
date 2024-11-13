@@ -22,15 +22,18 @@ body {
 
 #frame,
 #Eframe {
-  width: 30vw;
   height: 30vh;
   border-radius: 40px;
   background-color: rgba(15, 83, 80, 0.514);
-  background-position: top;
-  background-repeat: no-repeat;
+  object-fit: cover;
+  object-position: top;
+}
+
+#frame {
+  width: 20vw;
+  box-shadow: 0 0 10px 1px #ffffff, 0 0 20px 10px #00ff15bd;
 }
 
 #Eframe {
-  background-size: cover;
-  background-clip: content-box;
+  box-shadow: 0 0 10px 1px #ffffff, 0 0 20px 10px #ff1c1cd0;
 }
