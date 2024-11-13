@@ -73,7 +73,7 @@ export default function ShopItems({ count, setCount }) {
     <div className='mt-8'>
       <h1
         onClick={toggleShop}
-        className='text-2xl font-bold cursor-pointer text-orange-500 hover:text-orange-400 transition duration-300'
+        className='text-2xl font-bold cursor-pointer text-purple-300 hover:text-yellow-400 transition duration-300'
       >
         Shop
       </h1>

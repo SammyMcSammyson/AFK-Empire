@@ -9,6 +9,7 @@ import {
   SignedIn,
   SignedOut,
 } from '@clerk/nextjs';
+import Footer from '@/components/Footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           {children}
 
           </SignedIn>
+          <Footer/>
         </body>
       </html>
     </ClerkProvider>
