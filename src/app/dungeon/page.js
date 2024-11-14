@@ -94,15 +94,22 @@ export default function DungeonPage() {
       punchAudio.currentTime = 0;
       punchAudio.play();
     }
-
+/// this is will decresase enemy by 10 each attack
     if (enemy.health > 0) {
       setEnemy((prev) => ({
         ...prev,
-        health: Math.max(0, prev.health - player.dps),
+        health: Math.max(0, prev.health - 10),
       }));
+
+      // increase reward counter by 1
+      setPlayer((prevPlayer) => ({
+        ...prevPlayer,
+        counter: prevPlayer.counter + 1, 
+      }));
+      
       setBattleLog((prevLog) => [
         ...prevLog,
-        `You have attacked ${enemy.name} for ${player.dps} damage.`,
+        `You have attacked ${enemy.name} for 10 damage.`,
       ]);
     } else {
       localStorage.setItem('victory', 'true');
