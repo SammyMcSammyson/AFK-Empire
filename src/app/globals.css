@@ -38,7 +38,6 @@ body {
   box-shadow: 0 0 10px 1px #ffffff, 0 0 20px 10px #ff1c1cd0;
 }
 
-
 input,
 textarea {
   color: #0a0a0a;
@@ -57,3 +56,18 @@ textarea {
   align-self: center;
 }
 
+#initial-page {
+  background-image: url(/images/background/dungeon.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+#sign-up,
+#sign-in,
+#init-title {
+  box-shadow: 0 0 10px 2px rgb(255, 255, 255), 0 0 30px 10px rgb(122, 50, 255);
+  margin-right: 10px;
+  margin-left: 10px;
+}
