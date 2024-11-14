@@ -12,8 +12,7 @@ export default function BurgerMenu() {
     <NavigationMenu.Root className='relative z-20'>
       <button
         onClick={() => setIsOpen(!isOpen)}
-
-        className=" burger-menu-button flex flex-col gap-1.5 p-2 border-none bg-transparent cursor-pointer"
+        className=' burger-menu-button flex flex-col gap-1.5 p-2 border-none bg-transparent cursor-pointer'
       >
         {/* This bit is the burger icon */}
         <span className='w-6 h-0.5 bg-gray-800'></span>
@@ -41,14 +40,14 @@ export default function BurgerMenu() {
             </Link>
           </NavigationMenu.Item>
 
-          <NavigationMenu.Item>
+          {/* <NavigationMenu.Item>
             <Link
               href='/shop'
               className='text-gray-800 font-semibold hover:bg-gray-100 px-3 py-2 rounded'
             >
               Shop
             </Link>
-          </NavigationMenu.Item>
+          </NavigationMenu.Item> */}
 
           <NavigationMenu.Item>
             <Link

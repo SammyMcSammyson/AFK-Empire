@@ -10,6 +10,8 @@ import {
   SignedOut,
 } from '@clerk/nextjs';
 import Footer from '@/components/Footer';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -34,10 +36,21 @@ export default function RootLayout({ children }) {
           </SignedOut>
 
           <SignedIn>
-          {children}
-
+            {children}
+            <ToastContainer
+              position='bottom-right'
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme='colored'
+            />
           </SignedIn>
-          <Footer/>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

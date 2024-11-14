@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ShopItems({ count, setCount }) {
   let { userId } = useUser();
@@ -9,9 +11,13 @@ export default function ShopItems({ count, setCount }) {
   const [showShop, setShowShop] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Audio initialised for clicks and buy actions. "typeof Audio !== "undefined" this will prevent rendering errors on NextJS 
-  const [clickAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/click.mp3") : null);
-  const [buyAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/buy.mp3") : null);
+  // Audio initialised for clicks and buy actions. "typeof Audio !== "undefined" this will prevent rendering errors on NextJS
+  const [clickAudio] = useState(() =>
+    typeof Audio !== 'undefined' ? new Audio('/audio/click.mp3') : null
+  );
+  const [buyAudio] = useState(() =>
+    typeof Audio !== 'undefined' ? new Audio('/audio/buy.mp3') : null
+  );
 
   useEffect(() => {
     async function fetchShopItems() {
@@ -21,9 +27,9 @@ export default function ShopItems({ count, setCount }) {
     }
     fetchShopItems();
   }, []);
- // added buy sound
+  // added buy sound
   const buy = async (cost, item, itemId, health, dps) => {
-    if (buyAudio) buyAudio.play(); 
+    if (buyAudio) buyAudio.play();
 
     if (count >= cost) {
       const response = await fetch('http://localhost:3000/api/buy', {
@@ -43,22 +49,22 @@ export default function ShopItems({ count, setCount }) {
       });
       const result = await response.json();
       if (response.ok) {
-        alert(`You have bought the ${item}`);
+        toast.success(`You have just bought a ${item}`);
         setCount(result.newCount);
       } else {
-        alert(
+        toast.error(
           result.message ||
             'Your slots are full you should sell some to make space'
         );
       }
     } else {
-      alert(`You do not have enough money to purchase the ${item}`);
+      toast.error(`You do not have enough money to purchase the ${item}`);
     }
   };
 
   // Play click sound on sell
   const sellItem = async (itemId, sellValue, item, health, dps) => {
-    if (clickAudio) clickAudio.play();  
+    if (clickAudio) clickAudio.play();
 
     const response = await fetch('http://localhost:3000/api/sell', {
       method: 'POST',
@@ -77,22 +83,22 @@ export default function ShopItems({ count, setCount }) {
 
     const result = await response.json();
     if (response.ok) {
-      alert(`You have sold the ${item}`);
+      toast.success(`You have sold the ${item}`);
       setCount(result.newCount);
       console.log(count);
     } else {
-      alert(`Your cannot sell something if you do not own it.`);
+      toast.error(`Your cannot sell something if you do not own it.`);
     }
   };
 
   const handleCategoryClick = (category) => {
-    if (clickAudio) clickAudio.play();  
+    if (clickAudio) clickAudio.play();
 
     setSelectedCategory(category === selectedCategory ? '' : category);
   };
-// Play click sound added on shop toggle
+  // Play click sound added on shop toggle
   function toggle(itemId) {
-    if (clickAudio) clickAudio.play();  
+    if (clickAudio) clickAudio.play();
 
     setExpandedItems((prev) => ({
       ...prev,
@@ -101,7 +107,7 @@ export default function ShopItems({ count, setCount }) {
   }
 
   const toggleShop = () => {
-    if (clickAudio) clickAudio.play();  
+    if (clickAudio) clickAudio.play();
 
     setShowShop((prev) => !prev);
   };
@@ -171,6 +177,7 @@ export default function ShopItems({ count, setCount }) {
                     >
                       Buy
                     </button>
+
                     <button
                       onClick={() =>
                         sellItem(
