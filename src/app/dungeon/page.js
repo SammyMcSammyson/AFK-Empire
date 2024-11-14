@@ -6,6 +6,7 @@ import { en } from '@/enemy/enemy';
 import { av } from '@/avatar/avatar';
 import HealthProgressBar from '@/components/HealthProgressBar';
 import { useAuth } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 export default function DungeonPage() {
   const [battleLog, setBattleLog] = useState([]);
@@ -96,10 +97,17 @@ export default function DungeonPage() {
         `You have attacked ${enemy.name} for ${player.dps} damage.`,
       ]);
     } else {
-      setPlayer((prev) => ({ ...prev, counter: prev.counter + 1 }));
-      setEnemy({ ...enemy, health: maxEnemyHealth });
+      alert('You have won!');
+      redirect('/');
     }
   };
+
+  useEffect(() => {
+    if (player.health <= 0) {
+      alert('You have died!');
+      redirect('/');
+    }
+  }, [player.health]);
 
   useEffect(() => {
     if (!enemy.name || enemy.dps === 0) return;
