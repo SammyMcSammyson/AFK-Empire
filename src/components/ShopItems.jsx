@@ -9,6 +9,10 @@ export default function ShopItems({ count, setCount }) {
   const [showShop, setShowShop] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
 
+  // Audio initialised for clicks and buy actions. "typeof Audio !== "undefined" this will prevent rendering errors on NextJS 
+  const [clickAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/click.mp3") : null);
+  const [buyAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/buy.mp3") : null);
+
   useEffect(() => {
     async function fetchShopItems() {
       const response = await fetch('http://localhost:3000/api/shop');
@@ -17,8 +21,10 @@ export default function ShopItems({ count, setCount }) {
     }
     fetchShopItems();
   }, []);
-
+ // added buy sound
   const buy = async (cost, item, itemId, health, dps) => {
+    if (buyAudio) buyAudio.play(); 
+
     if (count >= cost) {
       const response = await fetch('http://localhost:3000/api/buy', {
         method: 'POST',
@@ -50,7 +56,10 @@ export default function ShopItems({ count, setCount }) {
     }
   };
 
+  // Play click sound on sell
   const sellItem = async (itemId, sellValue, item, health, dps) => {
+    if (clickAudio) clickAudio.play();  
+
     const response = await fetch('http://localhost:3000/api/sell', {
       method: 'POST',
       headers: {
@@ -77,14 +86,14 @@ export default function ShopItems({ count, setCount }) {
   };
 
   const handleCategoryClick = (category) => {
+    if (clickAudio) clickAudio.play();  
+
     setSelectedCategory(category === selectedCategory ? '' : category);
   };
-
-  const filteredItems = selectedCategory
-    ? shopItems.filter((item) => item.category === selectedCategory)
-    : shopItems;
-
+// Play click sound added on shop toggle
   function toggle(itemId) {
+    if (clickAudio) clickAudio.play();  
+
     setExpandedItems((prev) => ({
       ...prev,
       [itemId]: !prev[itemId],
@@ -92,8 +101,14 @@ export default function ShopItems({ count, setCount }) {
   }
 
   const toggleShop = () => {
+    if (clickAudio) clickAudio.play();  
+
     setShowShop((prev) => !prev);
   };
+
+  const filteredItems = selectedCategory
+    ? shopItems.filter((item) => item.category === selectedCategory)
+    : shopItems;
 
   return (
     <div className='mt-8'>
@@ -111,7 +126,6 @@ export default function ShopItems({ count, setCount }) {
               display: 'flex',
               gap: '10px',
               cursor: 'pointer',
-              border: 'solid',
             }}
           >
             <p onClick={() => handleCategoryClick('Potions')}>Potions</p>
