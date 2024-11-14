@@ -1,7 +1,7 @@
 import { db } from "@/utils/dbConnection";
 import { revalidatePath } from "next/cache";
 import DelButton from "@/components/DelButton";
-import Link from "next/link";
+
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Comments({ params }) {
@@ -34,8 +34,8 @@ export default async function Comments({ params }) {
   }
 
   return (
-    <div>
-      <h2 className="flex items-center justify-center mt-10 bg-amber-300 bg-opacity-25 p-4 rounded-xl">
+    <div className="flex flex-col">
+      <h2 className="flex items-center justify-center mt-10 bg-blue-500 bg-opacity-25 p-4 rounded-xl">
         post
       </h2>
 
@@ -43,7 +43,7 @@ export default async function Comments({ params }) {
         return (
           <>
             <div
-              className="flex flex-col items-center justify-center m-20 bg-purple-400 bg-opacity-25 p-5 rounded-xl text-lg "
+              className="flex flex-col items-center justify-center m-20 bg-blue-300 bg-opacity-25 p-5 rounded-xl text-lg "
               key={item.id}
             >
               <p className="text-purple-300 bg-blue-900 p-2 rounded-xl  border-lime-50 border-2">
@@ -55,7 +55,7 @@ export default async function Comments({ params }) {
           </>
         );
       })}
-      <h2 className="flex items-center justify-center bg-amber-300 bg-opacity-25 p-4 rounded-xl">
+      <h2 className="flex items-center justify-center bg-blue-500 bg-opacity-25 p-4 rounded-xl">
         comments
       </h2>
 
@@ -72,7 +72,7 @@ export default async function Comments({ params }) {
 
               <p className="text-cyan-200">{item2.comment_content}</p>
             </div>
-            <div>
+            <div className="flex text-center items-center justify-center">
               <form
                 action={async function handleDel() {
                   "use server";
@@ -91,12 +91,18 @@ export default async function Comments({ params }) {
         );
       })}
 
-      <div>
+      <div className="text-center">
         <form
           action={handleSaveComment}
-          className="m-10 mt-20 bg-yellow-400 bg-opacity-25 rounded-xl"
+          className="m-10 mt-20 bg-blue-400 bg-opacity-25 rounded-xl"
         >
-          <label htmlFor="comment">comment</label>
+          <label
+            className="flex items-center justify-center bg-blue-500 bg-opacity-25 p-4 rounded-xl"
+            htmlFor="comment"
+          >
+            comment
+          </label>
+          <br />
           <textarea
             className="post-comment"
             id="comment"
@@ -104,8 +110,9 @@ export default async function Comments({ params }) {
             name="comment"
             required
           />
+          <br />
           <button
-            className="bg-amber-600 p-2 m-4 rounded-2xl text-red-700"
+            className="mt-10 mb-10 px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 hover:shadow-lg transition-all"
             type="submit"
           >
             save comment

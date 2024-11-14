@@ -17,16 +17,18 @@ export default async function PublicFeed({ searchParams }) {
   return (
     <>
       <div>
-        <h1 className="flex justify-center m-5">posts</h1>
+        <h1 className="flex items-center justify-center mt-10 bg-blue-500 bg-opacity-25 p-4 rounded-xl">
+          posts
+        </h1>
         <div className="flex justify-center">
           <Link
-            className="m-4 bg-amber-600 bg-opacity-25 p-3 rounded-xl"
+            className="m-4 bg-blue-700 bg-opacity-25 p-3 rounded-xl"
             href="/publicFeed?sort=asc"
           >
             sort ascending
           </Link>
           <Link
-            className="m-4 bg-amber-600 bg-opacity-25 p-3 rounded-xl"
+            className="m-4  bg-blue-700 bg-opacity-25 p-3 rounded-xl"
             href="/publicFeed?sort=desc"
           >
             sort descending
@@ -35,19 +37,22 @@ export default async function PublicFeed({ searchParams }) {
 
         {wrangle.map((item) => {
           return (
-            <div className="flex flex-col m-2 items-center" key={item.id}>
-              <div className="flex">
+            <div
+              className="flex flex-col items-center bg-slate-600 bg-opacity-30 p-10 m-5 rounded-3xl"
+              key={item.id}
+            >
+              <div className="flex flex-col bg-slate-400 p-3 rounded-xl bg-opacity-50">
                 <p className="bg-blue-800 p-2  border-lime-50 border-2 rounded-xl">
-                  {item.username}
+                  {item.username}:
                 </p>
                 <p
                   id={item.id}
-                  className=" bg-slate-800 p-2 h-10 mt-0.5 rounded-xl text-purple-200"
+                  className=" bg-slate-800 p-2 h-10 mt-0.5 rounded-xl text-purple-200 text-center"
                 >
-                  :{item.post_content}
+                  {item.post_content}
                 </p>
               </div>
-              <div className="flex">
+              <div className="flex bg-slate-800 p-3 rounded-xl bg-opacity-50">
                 <div className="flex">
                   <Link
                     href={`publicFeed/${item.id}`}
@@ -67,12 +72,19 @@ export default async function PublicFeed({ searchParams }) {
                     revalidatePath("/publicFeed");
                   }}
                 >
-                  {user.id === item.user_id && <DelButton />}
+                  <div className="flex flex-row-reverse">
+                    {user.id === item.user_id && <DelButton />}
+                  </div>
                 </form>
               </div>
             </div>
           );
         })}
+        <div className="flex justify-center">
+          <div className="px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 hover:shadow-lg transition-all text-center items-center">
+            <Link href={"/newPost"}>add a new Post</Link>
+          </div>
+        </div>
       </div>
     </>
   );

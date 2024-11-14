@@ -12,13 +12,17 @@ export default function DelButton() {
   return (
     <>
       {showInfo ? (
-        <button id="del-button" type="submit">
+        <button
+          className="text-white font-bold bg-red-500 p-1 rounded-xl"
+          id="del-button"
+          type="submit"
+        >
           delete
         </button>
       ) : null}
       <p
         onClick={handleClick}
-        className="bg-slate-200 text-red-300 cursor-pointer flex items-center w-20 justify-center rounded-2xl m-3 p-1"
+        className="m-3 px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 hover:shadow-lg transition-all"
       >
         X
       </p>

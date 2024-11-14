@@ -21,10 +21,13 @@ export default async function NewPost() {
   }
   return (
     <>
-      <h1>form for new post</h1>
-      <div>
+      <h1 className="text-center items-center justify-center bg-blue-500 bg-opacity-25 p-4 rounded-xl mt-10">
+        new post
+      </h1>
+      <div className="flex flex-col justify-center text-center m-20">
         <form id="new-post" action={handleSave}>
           <label htmlFor="post">post</label>
+          <br />
           <textarea
             className="post-comment"
             id="post"
@@ -32,8 +35,9 @@ export default async function NewPost() {
             name="post"
             required
           />
+          <br />
           <button
-            className="bg-amber-600 p-2 m-4 rounded-2xl text-red-700"
+            className="px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 hover:shadow-lg transition-all text-center items-center"
             type="submit"
           >
             save post
