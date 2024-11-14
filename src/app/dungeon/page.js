@@ -144,7 +144,7 @@ export default function DungeonPage() {
       <div className='flex justify-between w-full max-w-4xl p-4'>
         
         {/* this is player Info */}
-        <div className='flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
+        <div className=' player-stats flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Player Info</h2>
           <p>Name: {player.name}</p>
           <p>Health:</p>
@@ -164,17 +164,17 @@ export default function DungeonPage() {
           </button>
         </div>
 
-        <div className='flex'>
-          <div className='m-5 mt-5'>
+        <div className='images flex'>
+          <div className='player-images m-5 mt-5'>
             <img id='frame' src={av[player.cn].url} alt='player' />
           </div>
-          <div className='m-5 mt-5'>
+          <div className=' enemy-images m-5 mt-5'>
             <img id='Eframe' src={en[enemy.cn].url} alt='enemy' />
           </div>
         </div>
 
-        {/* This is for enemy Info */}
-        <div className='flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
+        {/* This is for enemy info */}
+        <div className='enemy-stats flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Enemy Info</h2>
           <p>Name: {enemy.name}</p>
           <p>Health:</p>
@@ -188,7 +188,7 @@ export default function DungeonPage() {
       </div>
 
       {/* Radix Popover implemented here */}
-      <Popover.Root>
+      <Popover.Root className= 'popover'>
         <Popover.Trigger 
           onClick={handleViewDetailsClick}  
           className='bg-gray-700 px-4 py-2 rounded-lg mt-8'
