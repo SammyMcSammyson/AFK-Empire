@@ -126,7 +126,6 @@ export default function ShopItems({ count, setCount }) {
               display: 'flex',
               gap: '10px',
               cursor: 'pointer',
-              border: 'solid',
             }}
           >
             <p onClick={() => handleCategoryClick('Potions')}>Potions</p>
