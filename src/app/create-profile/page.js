@@ -1,8 +1,7 @@
- import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/utils/dbConnection";
-
 
 export default async function CreateProfile() {
   const user = await currentUser();
@@ -70,11 +69,11 @@ export default async function CreateProfile() {
             </div>
           </div>
           <div className="flex">
-            <img className="p-4" src="/images/av1.png" width={150} />
-            <img className="p-4" src="/images/av2.png" width={150} />
-            <img className="p-4" src="/images/av3.png" width={150} />
-            <img className="p-4" src="/images/av4.png" width={150} />
-            <img className="p-4" src="/images/av5.png" width={150} />
+            <img className="p-4" src="/images/avatar/av1.png" width={150} />
+            <img className="p-4" src="/images/avatar/av2.png" width={150} />
+            <img className="p-4" src="/images/avatar/av3.png" width={150} />
+            <img className="p-4" src="/images/avatar/av4.png" width={150} />
+            <img className="p-4" src="/images/avatar/av5.png" width={150} />
           </div>
           <button type="submit" className="m-10 bg-slate-500 p-2 rounded-xl">
             save profile
