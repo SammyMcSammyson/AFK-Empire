@@ -7,6 +7,9 @@ import { av } from '@/avatar/avatar';
 import HealthProgressBar from '@/components/HealthProgressBar';
 import { useAuth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DungeonPage() {
   const [battleLog, setBattleLog] = useState([]);
@@ -78,9 +81,13 @@ export default function DungeonPage() {
     fetchEnemy();
   }, []);
 
-   // add audio state "typeof Audio !== "undefined" this will prevent rendering errors on NextJS 
-  const [punchAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/punch.mp3") : null);
-  const [clickAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/click.mp3") : null);
+  // add audio state "typeof Audio !== "undefined" this will prevent rendering errors on NextJS
+  const [punchAudio] = useState(() =>
+    typeof Audio !== 'undefined' ? new Audio('/audio/punch.mp3') : null
+  );
+  const [clickAudio] = useState(() =>
+    typeof Audio !== 'undefined' ? new Audio('/audio/click.mp3') : null
+  );
 
   const handleAttack = () => {
     if (punchAudio) {
@@ -98,14 +105,14 @@ export default function DungeonPage() {
         `You have attacked ${enemy.name} for ${player.dps} damage.`,
       ]);
     } else {
-      alert('You have won!');
+      toast.success('You have won!');
       redirect('/');
     }
   };
 
   useEffect(() => {
     if (player.health <= 0) {
-      alert('You have died!');
+      toast.error('You have died!');
       redirect('/');
     }
   }, [player.health]);
@@ -142,16 +149,15 @@ export default function DungeonPage() {
   return (
     <div className='flex flex-col items-center justify-center h-screen bg-gray-900 text-white'>
       <div className='flex justify-between w-full max-w-4xl p-4'>
-        
         {/* this is player Info */}
         <div className=' player-stats flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Player Info</h2>
           <p>Name: {player.name}</p>
           <p>Health:</p>
           <HealthProgressBar
-           // progress bar defaults to 0 if health is NaN and 100 if maxhealth is NaN.
-            health={isNaN(Number(player.health)) ? 0 : player.health}       
-            maxHealth={isNaN(Number(maxPlayerHealth)) ? 100 : maxPlayerHealth} 
+            // progress bar defaults to 0 if health is NaN and 100 if maxhealth is NaN.
+            health={isNaN(Number(player.health)) ? 0 : player.health}
+            maxHealth={isNaN(Number(maxPlayerHealth)) ? 100 : maxPlayerHealth}
             color='bg-green-500'
           />
           <p>DPS: {player.dps}</p>
@@ -179,8 +185,8 @@ export default function DungeonPage() {
           <p>Name: {enemy.name}</p>
           <p>Health:</p>
           <HealthProgressBar
-            health={isNaN(Number(enemy.health)) ? 0 : enemy.health}         
-            maxHealth={isNaN(Number(maxEnemyHealth)) ? 100 : maxEnemyHealth}  
+            health={isNaN(Number(enemy.health)) ? 0 : enemy.health}
+            maxHealth={isNaN(Number(maxEnemyHealth)) ? 100 : maxEnemyHealth}
             color='bg-red-500'
           />
           <p>DPS: {enemy.dps}</p>
@@ -188,6 +194,7 @@ export default function DungeonPage() {
       </div>
 
       {/* Radix Popover implemented here */}
+
       <Popover.Root className= 'popover'>
         <Popover.Trigger 
           onClick={handleViewDetailsClick}  
