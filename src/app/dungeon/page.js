@@ -105,7 +105,7 @@ export default function DungeonPage() {
         `You have attacked ${enemy.name} for ${player.dps} damage.`,
       ]);
     } else {
-      toast.success('You have won!');
+      localStorage.setItem('victory', 'true');
       redirect('/');
     }
   };
@@ -195,9 +195,9 @@ export default function DungeonPage() {
 
       {/* Radix Popover implemented here */}
 
-      <Popover.Root className= 'popover'>
-        <Popover.Trigger 
-          onClick={handleViewDetailsClick}  
+      <Popover.Root className='popover'>
+        <Popover.Trigger
+          onClick={handleViewDetailsClick}
           className='bg-gray-700 px-4 py-2 rounded-lg mt-8'
         >
           View Details

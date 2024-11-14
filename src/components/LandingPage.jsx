@@ -2,6 +2,7 @@
 import Counter from './Counter';
 import ShopItems from './ShopItems';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 export default function LandingPage() {
   const [count, setCount] = useState('Loading');
@@ -26,6 +27,13 @@ export default function LandingPage() {
     }
 
     fetchUserCount();
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('victory') === 'true') {
+      toast.success('You have won!');
+      localStorage.removeItem('victory');
+    }
   }, []);
 
   return (
