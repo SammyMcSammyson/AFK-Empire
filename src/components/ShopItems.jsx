@@ -21,7 +21,7 @@ export default function ShopItems({ count, setCount }) {
 
   useEffect(() => {
     async function fetchShopItems() {
-      const response = await fetch('http://localhost:3000/api/shop');
+      const response = await fetch('https://afk-empire.vercel.app/api/shop');
       const data = await response.json();
       setShopItems(data);
     }
@@ -32,7 +32,7 @@ export default function ShopItems({ count, setCount }) {
     if (buyAudio) buyAudio.play();
 
     if (count >= cost) {
-      const response = await fetch('http://localhost:3000/api/buy', {
+      const response = await fetch('https://afk-empire.vercel.app/api/buy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export default function ShopItems({ count, setCount }) {
   const sellItem = async (itemId, sellValue, item, health, dps) => {
     if (clickAudio) clickAudio.play();
 
-    const response = await fetch('http://localhost:3000/api/sell', {
+    const response = await fetch('https://afk-empire.vercel.app/api/sell', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -27,7 +27,7 @@ export default function DungeonPage() {
 
   useEffect(() => {
     async function fetchPlayer() {
-      const response = await fetch('http://localhost:3000/api/player', {
+      const response = await fetch('https://afk-empire.vercel.app/api/player', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.userId }),
@@ -59,7 +59,7 @@ export default function DungeonPage() {
 
   useEffect(() => {
     async function fetchEnemy() {
-      const response = await fetch('http://localhost:3000/api/enemy');
+      const response = await fetch('https://afk-empire.vercel.app/api/enemy');
       const data = await response.json();
       setFetchEnemy(data);
 
@@ -94,7 +94,7 @@ export default function DungeonPage() {
       punchAudio.currentTime = 0;
       punchAudio.play();
     }
-/// this is will decresase enemy by 10 each attack
+    /// this is will decresase enemy by 10 each attack
     if (enemy.health > 0) {
       setEnemy((prev) => ({
         ...prev,
@@ -104,9 +104,9 @@ export default function DungeonPage() {
       // increase reward counter by 1
       setPlayer((prevPlayer) => ({
         ...prevPlayer,
-        counter: prevPlayer.counter + 1, 
+        counter: prevPlayer.counter + 1,
       }));
-      
+
       setBattleLog((prevLog) => [
         ...prevLog,
         `You have attacked ${enemy.name} for 10 damage.`,

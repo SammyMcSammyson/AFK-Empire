@@ -8,12 +8,15 @@ export default function LandingPage() {
   const [count, setCount] = useState('Loading');
   const counter = () => setCount((prevCount) => prevCount + 1);
   const reset = async () => {
-    const response = await fetch('http://localhost:3000/api/resetCount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      'https://afk-empire.vercel.app/api/resetCount',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     setCount(0);
     alert('Your game has been reset');
@@ -21,7 +24,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     async function fetchUserCount() {
-      const response = await fetch('http://localhost:3000/api/count');
+      const response = await fetch('https://afk-empire.vercel.app/api/count');
       const data = await response.json();
       setCount(data.count);
     }
