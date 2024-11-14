@@ -42,12 +42,12 @@ export default async function PublicFeed({ searchParams }) {
               key={item.id}
             >
               <div className="flex flex-col bg-slate-400 p-3 rounded-xl bg-opacity-50">
-                <p className="bg-blue-800 p-2  border-lime-50 border-2 rounded-xl">
+                <p className="bg-blue-800 p-2  border-lime-50 border-2 rounded-xl text-center">
                   {item.username}:
                 </p>
                 <p
                   id={item.id}
-                  className=" bg-slate-800 p-2 h-10 mt-0.5 rounded-xl text-purple-200 text-center"
+                  className=" bg-slate-800 m-3 p-2 mt-0.5 rounded-xl text-purple-200 text-center"
                 >
                   {item.post_content}
                 </p>
