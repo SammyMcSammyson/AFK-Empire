@@ -4,7 +4,7 @@ export default function InitialPage() {
   return (
     <>
       <div className="initial page">
-        <h1 className="initPage-title">welcome, please sign in to continue</h1>
+        <h1 className="initPage-title">Welcome, please sign in to continue</h1>
         <div className="sign-in">
           <SignInButton mode="modal">sign in</SignInButton>
         </div>
