@@ -2,6 +2,7 @@ import LandingPage from "../components/LandingPage.jsx";
 import EncounterButton from "@/components/FaceEncounterButton.jsx";
 import Image from "next/image";
 import waterfall from "@/../public/waterfall.jpg";
+import Link from "next/link.js";
 
 export default function Homepage() {
   return (
@@ -25,6 +26,9 @@ export default function Homepage() {
       </p>
       <LandingPage />
       <EncounterButton />
+      <div className="mt-20 px-6 py-2 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 hover:shadow-lg transition-all">
+        <Link href={"/publicFeed"}>engage with other players</Link>
+      </div>
     </div>
   );
 }
