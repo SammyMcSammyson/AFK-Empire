@@ -9,19 +9,15 @@ import { useAuth } from '@clerk/nextjs';
 
 export default function DungeonPage() {
   const [battleLog, setBattleLog] = useState([]);
-
   const [maxPlayerHealth, setMaxPlayerHealth] = useState('Loading');
   const [maxEnemyHealth, setMaxEnemyHealth] = useState('Loading');
   const [player, setPlayer] = useState({
     name: 'Player1',
-
     health: 'Loading',
     dps: 'Loading',
-
     counter: 0,
     cn: 0,
   });
-
   let user = useAuth();
   console.log(useAuth(user));
 
@@ -30,7 +26,6 @@ export default function DungeonPage() {
       const response = await fetch('http://localhost:3000/api/player', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-
         body: JSON.stringify({ userId: user.userId }),
       });
 
@@ -39,11 +34,9 @@ export default function DungeonPage() {
         name: data.user_name,
         health: data.health,
         dps: data.dps,
-
         counter: data.counter,
         cn: data.characternumber - 1,
       });
-
       setMaxPlayerHealth(data.health);
     }
 
@@ -78,14 +71,22 @@ export default function DungeonPage() {
           dps: selectedEnemy.dps,
           cn: val,
         });
-
         setMaxEnemyHealth(selectedEnemy.enemy_health);
       }
     }
     fetchEnemy();
   }, []);
 
+   // add audio state "typeof Audio !== "undefined" this will prevent rendering errors on NextJS 
+  const [punchAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/punch.mp3") : null);
+  const [clickAudio] = useState(() => typeof Audio !== "undefined" ? new Audio("/audio/click.mp3") : null);
+
   const handleAttack = () => {
+    if (punchAudio) {
+      punchAudio.currentTime = 0;
+      punchAudio.play();
+    }
+
     if (enemy.health > 0) {
       setEnemy((prev) => ({
         ...prev,
@@ -122,18 +123,27 @@ export default function DungeonPage() {
     return () => clearTimeout(delayTimeout);
   }, [enemy.dps]);
 
+  // add function to click sound to view details
+  const handleViewDetailsClick = () => {
+    if (clickAudio) {
+      clickAudio.currentTime = 0;
+      clickAudio.play();
+    }
+  };
+
   return (
     <div className='flex flex-col items-center justify-center h-screen bg-gray-900 text-white'>
       <div className='flex justify-between w-full max-w-4xl p-4'>
-        {/* this is part is for player Info */}
+        
+        {/* this is player Info */}
         <div className='flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Player Info</h2>
           <p>Name: {player.name}</p>
           <p>Health:</p>
           <HealthProgressBar
-            health={player.health}
-            maxHealth={maxPlayerHealth}
-            value={100000}
+           // progress bar defaults to 0 if health is NaN and 100 if maxhealth is NaN.
+            health={isNaN(Number(player.health)) ? 0 : player.health}       
+            maxHealth={isNaN(Number(maxPlayerHealth)) ? 100 : maxPlayerHealth} 
             color='bg-green-500'
           />
           <p>DPS: {player.dps}</p>
@@ -155,23 +165,26 @@ export default function DungeonPage() {
           </div>
         </div>
 
-        {/* This part is for enemy info */}
+        {/* This is for enemy Info */}
         <div className='flex flex-col items-center space-y-4 p-4 bg-gray-800 rounded-lg'>
           <h2 className='text-2xl font-bold'>Enemy Info</h2>
           <p>Name: {enemy.name}</p>
           <p>Health:</p>
           <HealthProgressBar
-            health={enemy.health}
-            maxHealth={maxEnemyHealth}
+            health={isNaN(Number(enemy.health)) ? 0 : enemy.health}         
+            maxHealth={isNaN(Number(maxEnemyHealth)) ? 100 : maxEnemyHealth}  
             color='bg-red-500'
           />
           <p>DPS: {enemy.dps}</p>
         </div>
       </div>
 
-      {/* popover radix UI primitive implemented here */}
+      {/* Radix Popover implemented here */}
       <Popover.Root>
-        <Popover.Trigger className='bg-gray-700 px-4 py-2 rounded-lg mt-8'>
+        <Popover.Trigger 
+          onClick={handleViewDetailsClick}  
+          className='bg-gray-700 px-4 py-2 rounded-lg mt-8'
+        >
           View Details
         </Popover.Trigger>
         <Popover.Anchor />
