@@ -3,8 +3,12 @@
 import { useState } from "react";
 
 const Counter = ({ count, counter, reset }) => {
-  const [clickSound] = useState(() => new Audio("/audio/click.mp3"));
-  const [resetSound] = useState(() => new Audio("/audio/reset.mp3"));
+  const [clickSound] = useState(() =>
+    typeof Audio !== 'undefined' ? new Audio('/audio/click.mp3') : null
+  );
+  const [resetSound] = useState(() =>
+    typeof Audio !== 'undefined' ? new Audio('/audio/reset.mp3') : null
+  );
 
   // handle the click sound
   const handleCounterClick = () => {
