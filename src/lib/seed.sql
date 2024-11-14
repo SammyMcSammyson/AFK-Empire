@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS enemy_info (
 
 CREATE TABLE IF NOT EXISTS user_posts(
  id SERIAL PRIMARY KEY,
+ username TEXT,
  post_content TEXT,
  user_id TEXT REFERENCES user_info (user_id) ON DELETE CASCADE,
  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -43,6 +44,7 @@ CREATE TABLE IF NOT EXISTS user_posts(
 
 CREATE TABLE IF NOT EXISTS user_comments(
  id SERIAL PRIMARY KEY,
+ username TEXT,
  comment_content TEXT,
  user_id TEXT REFERENCES user_info(user_id),
  post_id INTEGER REFERENCES user_posts (id) ON DELETE CASCADE,
