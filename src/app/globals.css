@@ -38,3 +38,22 @@ body {
   box-shadow: 0 0 10px 1px #ffffff, 0 0 20px 10px #ff1c1cd0;
 }
 
+
+input,
+textarea {
+  color: #0a0a0a;
+  padding: 5px;
+}
+
+.post-comment {
+  width: 50vw;
+  background-color: #ededed;
+  height: 150px;
+}
+
+#del-button {
+  box-shadow: 0 0 20px 5px red;
+  height: 40px;
+  align-self: center;
+}
+
