@@ -8,6 +8,20 @@ Welcome to AFK Empire below we will go into the development of the project from 
 
 Click the link and have a go - https://afk-empire.vercel.app/
 
+Personal Use
+
+    If you would like to use the app on your local host or use it as a base to develop the project futher. Here are the initial steps to help you along. 
+
+    First clone the repo on to your computer 
+
+    Git Clone - git@github.com:SammyMcSammyson/AFK-Empire.git
+
+    Next run npm install - to get all the packages you might need - Due to nextJS recently updating to version 15 and the packages taking time to follow you might need to add the command "--force" onto the end if you get any errors. 
+
+    Once you have installed all the packages and have it it up and running remember to change the API routes to your Local Host since they currently point at our own vercel deployment. 
+
+    Happy Coding
+
 Concept and Planning.
 
     We decided very early on we wanted to make a game since it is an easy way to engage the user - it is also where our intrests lie. Once this was decided we naturally decided on idle clicker games since this was something we had experience in and we thought it would be relativley simple - fun fact it was not - it was also a project that we had enjoyed in the past. It was also something that we could very easily add to and expand later on, this gave the project major scope.
